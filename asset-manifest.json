@@ -1,0 +1,15 @@
+{
+  "files": {
+    "main.css": "/Day17_Typing/static/css/main.7c057213.css",
+    "main.js": "/Day17_Typing/static/js/main.0a73d685.js",
+    "static/js/453.c2924192.chunk.js": "/Day17_Typing/static/js/453.c2924192.chunk.js",
+    "index.html": "/Day17_Typing/index.html",
+    "main.7c057213.css.map": "/Day17_Typing/static/css/main.7c057213.css.map",
+    "main.0a73d685.js.map": "/Day17_Typing/static/js/main.0a73d685.js.map",
+    "453.c2924192.chunk.js.map": "/Day17_Typing/static/js/453.c2924192.chunk.js.map"
+  },
+  "entrypoints": [
+    "static/css/main.7c057213.css",
+    "static/js/main.0a73d685.js"
+  ]
+}
