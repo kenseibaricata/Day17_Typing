@@ -3,29 +3,31 @@ import React, { useEffect } from 'react';
 const TypingArea = ({ input, onInputChange, isGameActive, inputRef, expectedInput, japaneseWord, inputMode = 'romaji' }) => {
   // 半角英語入力モードに切り替えるための効果
   useEffect(() => {
-    if (inputRef.current) {
-      // 半角英語入力モードを強制するためのフォーカス時の処理
-      const setEnglishInput = () => {
-        inputRef.current.setAttribute('lang', 'en');
-        inputRef.current.setAttribute('inputmode', 'latin');
-        inputRef.current.setAttribute('autocomplete', 'off');
-        inputRef.current.setAttribute('autocorrect', 'off');
-        inputRef.current.setAttribute('autocapitalize', 'off');
-        inputRef.current.setAttribute('spellcheck', 'false');
-        
-        // IMEを無効化
-        inputRef.current.style.imeMode = 'disabled';
-      };
+    if (!inputRef.current) return;
+    
+    // inputRef.currentの参照を保存しておく
+    const inputElement = inputRef.current;
+    
+    // 半角英語入力モードを強制するためのフォーカス時の処理
+    const setEnglishInput = () => {
+      inputElement.setAttribute('lang', 'en');
+      inputElement.setAttribute('inputmode', 'latin');
+      inputElement.setAttribute('autocomplete', 'off');
+      inputElement.setAttribute('autocorrect', 'off');
+      inputElement.setAttribute('autocapitalize', 'off');
+      inputElement.setAttribute('spellcheck', 'false');
       
-      inputRef.current.addEventListener('focus', setEnglishInput);
-      setEnglishInput(); // 初期表示時にも適用
-      
-      return () => {
-        if (inputRef.current) {
-          inputRef.current.removeEventListener('focus', setEnglishInput);
-        }
-      };
-    }
+      // IMEを無効化
+      inputElement.style.imeMode = 'disabled';
+    };
+    
+    inputElement.addEventListener('focus', setEnglishInput);
+    setEnglishInput(); // 初期表示時にも適用
+    
+    return () => {
+      // クリーンアップ時には保存しておいた参照を使用
+      inputElement.removeEventListener('focus', setEnglishInput);
+    };
   }, [inputRef]);
 
   // 入力文字のハイライト表示（ローマ字のみ対応）
@@ -84,7 +86,7 @@ const TypingArea = ({ input, onInputChange, isGameActive, inputRef, expectedInpu
   // カスタムの入力ハンドラ - 半角英数のみ受け付ける
   const handleInputChange = (e) => {
     // 半角英数のみを許可する正規表現
-    const asciiRegex = /^[a-zA-Z0-9\-]*$/;
+    const asciiRegex = /^[a-zA-Z0-9-]*$/;
     const value = e.target.value;
     
     // 空の場合または全て半角英数の場合のみ更新

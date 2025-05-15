@@ -21,12 +21,11 @@ const Fireworks = ({ show }) => {
         size: 10 + Math.random() * 30,
       };
       
-      setFireworks(prev => [...prev, newFirework]);
-      
-      // 30個以上になったら古いものから削除
-      if (fireworks.length > 30) {
-        setFireworks(prev => prev.slice(1));
-      }
+      setFireworks(prev => {
+        // 配列内で処理して、30個以上の場合は古いものを削除
+        const updated = [...prev, newFirework];
+        return updated.length > 30 ? updated.slice(1) : updated;
+      });
     }, 200); // より頻繁に花火を表示
     
     // 初期表示時に花火をいくつか表示

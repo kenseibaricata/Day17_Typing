@@ -15,23 +15,22 @@ const Game = ({ onGameEnd, timeLeft, setTimeLeft }) => {
   const [typedWords, setTypedWords] = useState([]);
   const inputRef = useRef(null);
 
-  // アイコンの配列
-  const icons = [
-    <KeyboardIcon key="keyboard" />,
-    <MonitorIcon key="monitor" />,
-    <CPUIcon key="cpu" />,
-    <MouseIcon key="mouse" />,
-    <ServerIcon key="server" />,
-    <HardDiskIcon key="harddisk" />,
-    <CodeIcon key="code" />,
-    <WifiIcon key="wifi" />
-  ];
-
   // ランダムなアイコンを取得する関数
   const getRandomIcons = useCallback((count) => {
+    // アイコンの配列をコールバック内に移動
+    const icons = [
+      <KeyboardIcon key="keyboard" />,
+      <MonitorIcon key="monitor" />,
+      <CPUIcon key="cpu" />,
+      <MouseIcon key="mouse" />,
+      <ServerIcon key="server" />,
+      <HardDiskIcon key="harddisk" />,
+      <CodeIcon key="code" />,
+      <WifiIcon key="wifi" />
+    ];
     const shuffled = [...icons].sort(() => 0.5 - Math.random());
     return shuffled.slice(0, count);
-  }, [icons]);
+  }, []);
   
   // 背景アイコンの状態
   const [backgroundIcons, setBackgroundIcons] = useState([]);
@@ -70,7 +69,7 @@ const Game = ({ onGameEnd, timeLeft, setTimeLeft }) => {
     }, 1000);
 
     return () => clearInterval(timer);
-  }, [isGameActive, endGame]);
+  }, [isGameActive, endGame, setTimeLeft]);
 
   const handleInputChange = (e) => {
     if (!isGameActive) return;
