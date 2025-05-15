@@ -36,3 +36,76 @@
     transform: rotate(360deg);
   }
 }
+
+/* ハッカー風のアニメーション効果 */
+@keyframes flicker {
+  0% { opacity: 0.8; }
+  5% { opacity: 1; }
+  10% { opacity: 0.8; }
+  15% { opacity: 0.9; }
+  20% { opacity: 1; }
+  30% { opacity: 0.9; }
+  40% { opacity: 1; }
+  60% { opacity: 0.8; }
+  70% { opacity: 1; }
+  80% { opacity: 0.9; }
+  90% { opacity: 1; }
+  100% { opacity: 0.9; }
+}
+
+/* ブラウン管のようなスキャンライン効果 */
+@keyframes scanline {
+  0% { transform: translateY(0); }
+  100% { transform: translateY(100vh); }
+}
+
+/* ターミナルのカーソル点滅 */
+@keyframes blink {
+  0%, 49% { opacity: 1; }
+  50%, 100% { opacity: 0; }
+}
+
+/* 基本スタイル */
+body {
+  background-color: #000;
+  color: #00ff00;
+  font-family: 'Courier New', monospace;
+  overflow-x: hidden;
+}
+
+.App::before {
+  content: "";
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(to bottom, transparent, rgba(0, 255, 0, 0.05));
+  pointer-events: none;
+  animation: scanline 10s linear infinite;
+  z-index: 100;
+}
+
+/* ボタンにターミナル風の効果を追加 */
+button {
+  position: relative;
+  transition: all 0.2s ease;
+}
+
+button::after {
+  content: "_";
+  position: absolute;
+  display: inline-block;
+  animation: blink 1s infinite;
+  margin-left: 5px;
+}
+
+button:hover {
+  text-shadow: 0 0 5px #00ff00;
+  box-shadow: 0 0 10px rgba(0, 255, 0, 0.5);
+}
+
+/* テキスト入力フォームのカスタマイズ */
+input[type="text"]:focus {
+  box-shadow: 0 0 8px #00ff00;
+}

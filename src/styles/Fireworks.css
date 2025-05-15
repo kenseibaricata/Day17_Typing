@@ -1,0 +1,100 @@
+.fireworks-container {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  pointer-events: none;
+  z-index: 1000;
+  overflow: hidden;
+}
+
+.firework {
+  position: absolute;
+  width: var(--size);
+  height: var(--size);
+  border-radius: 50%;
+  background: var(--color);
+  transform: scale(0);
+  animation: firework-explosion 1s ease-out forwards;
+  box-shadow: 0 0 10px 2px var(--color);
+}
+
+@keyframes firework-explosion {
+  0% {
+    transform: scale(0);
+    opacity: 1;
+    box-shadow: 0 0 0 0px var(--color);
+  }
+  40% {
+    opacity: 1;
+  }
+  100% {
+    transform: scale(1);
+    opacity: 0;
+    box-shadow: 
+      0 0 40px 20px rgba(255, 255, 255, 0.2),
+      0 0 80px 40px rgba(255, 255, 255, 0);
+  }
+}
+
+/* 花火の光線エフェクト */
+.firework::before,
+.firework::after {
+  content: "";
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: 100%;
+  height: 100%;
+  border-radius: 50%;
+  transform: translate(-50%, -50%);
+  background: var(--color);
+  z-index: -1;
+  filter: blur(1px);
+  animation: firework-rays 0.8s ease-out forwards;
+}
+
+.firework::before {
+  transform: translate(-50%, -50%) rotate(0deg);
+  box-shadow: 
+    0 0 6px 2px var(--color),
+    0 0 12px 6px rgba(255, 255, 255, 0.6);
+}
+
+.firework::after {
+  animation-delay: 0.1s;
+  transform: translate(-50%, -50%) rotate(45deg);
+  animation-name: firework-scatter;
+}
+
+@keyframes firework-rays {
+  0% {
+    width: 0;
+    height: 0;
+    opacity: 1;
+  }
+  50% {
+    opacity: 0.8;
+  }
+  100% {
+    width: 200%;
+    height: 4px;
+    opacity: 0;
+  }
+}
+
+/* 追加の散乱する星エフェクト */
+@keyframes firework-scatter {
+  0% {
+    width: 0;
+    height: 0;
+    opacity: 1;
+  }
+  100% {
+    width: 300%;
+    height: 300%;
+    opacity: 0;
+    transform: translate(-50%, -50%) rotate(135deg) scale(0.5);
+  }
+} 
